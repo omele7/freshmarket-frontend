@@ -1,0 +1,79 @@
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-grid">
+      <!-- Brand Section -->
+      <div class="footer-brand">
+        <div class="brand-logo">
+          <div class="brand-icon">🍎</div>
+          <span class="brand-name">FreshMarket</span>
+        </div>
+        <p class="brand-description">
+          Tu mercado de confianza para frutas y verduras frescas. Calidad garantizada, directo a tu
+          puerta.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-section">
+        <h4 class="footer-heading">Enlaces Rápidos</h4>
+        <ul class="footer-links">
+          <li><a routerLink="/products" class="footer-link">Productos</a></li>
+          <li><a routerLink="/about" class="footer-link">Sobre Nosotros</a></li>
+          <li><a href="mailto:dicabrerabuitron@gmail.com" class="footer-link">Contacto</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="footer-section">
+        <h4 class="footer-heading">Contacto</h4>
+        <ul class="contact-list">
+          <li class="contact-item">
+            <span class="contact-icon">📧</span>
+            <a href="mailto:dicabrerabuitron@gmail.com" class="footer-link">
+              info&#64;freshmarket.com
+            </a>
+          </li>
+          <li class="contact-item">
+            <span class="contact-icon">📞</span>
+            <span>+51 999 999 999</span>
+          </li>
+          <li class="contact-item">
+            <span class="contact-icon">📍</span>
+            <span>Lima, Perú</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Social Media -->
+      <div class="footer-section">
+        <h4 class="footer-heading">Síguenos</h4>
+        <div class="social-icons">
+          <a href="#" aria-label="Facebook" class="social-icon">📘</a>
+          <a href="#" aria-label="Instagram" class="social-icon">📷</a>
+          <a href="#" aria-label="Twitter" class="social-icon">🐦</a>
+        </div>
+
+        <div class="newsletter">
+          <p class="newsletter-text">Suscríbete a nuestro boletín</p>
+          <div class="newsletter-form">
+            <input type="email" placeholder="Tu email" class="newsletter-input" />
+            <button class="newsletter-button">✓</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="footer-bottom">
+    <div class="footer-bottom-container">
+      <p class="copyright">
+        &copy; {{ currentYear() }} FreshMarket. Todos los derechos reservados.
+      </p>
+      <div class="footer-bottom-links">
+        <a routerLink="/terms" class="footer-bottom-link">Términos de Servicio</a>
+        <a routerLink="/privacy" class="footer-bottom-link">Privacidad</a>
+      </div>
+    </div>
+  </div>
+</footer>

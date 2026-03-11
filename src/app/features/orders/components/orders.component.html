@@ -1,0 +1,101 @@
+<div class="page-container">
+  <h1 class="page-title">Mis Pedidos 📦</h1>
+
+  @if (loading()) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Cargando pedidos...</p>
+    </div>
+  } @else if (errorMessage()) {
+    <div class="error-state">
+      <div class="error-icon">⚠️</div>
+      <p class="error-title">Error al cargar pedidos</p>
+      <p class="error-text">{{ errorMessage() }}</p>
+      <button class="retry-button" (click)="loadOrders()">Reintentar</button>
+    </div>
+  } @else if (orders().length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">📦</div>
+      <p class="empty-title">No tienes pedidos aún</p>
+      <p class="empty-text">Realiza tu primera compra y aparecerá aquí</p>
+      <a routerLink="/products" class="cta-button"> Explorar Productos → </a>
+    </div>
+  } @else {
+    <div class="orders-grid">
+      @for (order of orders(); track order.orderNumber) {
+        <div class="order-card">
+          <div class="order-header">
+            <div class="order-info">
+              <span class="order-number">Pedido #{{ order.orderNumber }}</span>
+              <span class="order-date">{{ formatDate(order.createdAt) }}</span>
+            </div>
+            <div class="order-actions">
+              <span class="status-badge">Confirmado</span>
+              <button
+                class="delete-order-btn"
+                (click)="deleteOrder(order.orderNumber)"
+                title="Eliminar pedido"
+              >
+                🗑️
+              </button>
+            </div>
+          </div>
+
+          <div class="order-body">
+            <!-- Lista de items en este pedido -->
+            <div class="items-list">
+              @for (item of order.items; track item.productId) {
+                <div class="order-item">
+                  <div class="item-info">
+                    <h3 class="product-name">{{ item.productName }}</h3>
+                    <div class="product-details">
+                      <span class="quantity">{{ item.quantity }}x</span>
+                      <span class="unit-price">S/ {{ item.unitPrice.toFixed(2) }}</span>
+                    </div>
+                  </div>
+                  <div class="item-subtotal">
+                    <span class="subtotal-amount">S/ {{ item.subtotal.toFixed(2) }}</span>
+                  </div>
+                </div>
+              }
+            </div>
+
+            <!-- Resumen del pedido -->
+            <div class="order-summary">
+              <div class="summary-row">
+                <span>Subtotal:</span>
+                <span>S/ {{ order.subtotal.toFixed(2) }}</span>
+              </div>
+              <div class="summary-row">
+                <span>IGV (18%):</span>
+                <span>S/ {{ order.tax.toFixed(2) }}</span>
+              </div>
+              <div class="summary-divider"></div>
+              <div class="summary-row total">
+                <span>Total:</span>
+                <span>S/ {{ order.total.toFixed(2) }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="order-footer">
+            <div class="delivery-status">
+              <span class="delivery-icon">🚚</span>
+              <span class="delivery-text">En camino - {{ order.totalItems }} productos</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="orders-summary">
+      <div class="summary-info">
+        <p class="summary-text">Total de pedidos: {{ orders().length }}</p>
+        <p class="summary-text">Monto total: S/ {{ calculateTotal() }}</p>
+      </div>
+      <button class="delete-all-btn" (click)="deleteAllOrders()">
+        🗑️ Eliminar Todos los Pedidos
+      </button>
+    </div>
+  }
+</div>

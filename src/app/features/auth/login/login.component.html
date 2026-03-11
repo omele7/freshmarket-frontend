@@ -1,0 +1,118 @@
+<div class="login-wrapper">
+  <div class="login-container">
+    <!-- Logo/Brand -->
+    <div class="login-header">
+      <div class="brand-logo">🍎</div>
+      <h1 class="brand-title">FreshMarket</h1>
+      <p class="brand-subtitle">Inicia sesión en tu cuenta</p>
+    </div>
+
+    <!-- Login Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email" class="form-label">
+          Email
+          <span class="required">*</span>
+        </label>
+        <div class="input-wrapper">
+          <span class="input-icon">📧</span>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="form-input"
+            placeholder="tu@email.com"
+            [class.input-error]="isFieldInvalid('email')"
+          />
+        </div>
+        @if (isFieldInvalid('email')) {
+          <div class="error-message">
+            @if (loginForm.get('email')?.hasError('required')) {
+              El email es requerido
+            } @else if (loginForm.get('email')?.hasError('email')) {
+              Ingresa un email válido
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password" class="form-label">
+          Contraseña
+          <span class="required">*</span>
+        </label>
+        <div class="input-wrapper">
+          <span class="input-icon">🔒</span>
+          <input
+            id="password"
+            [type]="showPassword() ? 'text' : 'password'"
+            formControlName="password"
+            class="form-input"
+            placeholder="••••••••"
+            [class.input-error]="isFieldInvalid('password')"
+          />
+          <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+            {{ showPassword() ? '👁️' : '👁️‍🗨️' }}
+          </button>
+        </div>
+        @if (isFieldInvalid('password')) {
+          <div class="error-message">
+            @if (loginForm.get('password')?.hasError('required')) {
+              La contraseña es requerida
+            } @else if (loginForm.get('password')?.hasError('minlength')) {
+              Mínimo 6 caracteres
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Remember Me & Forgot Password -->
+      <div class="form-options">
+        <label class="checkbox-label">
+          <input type="checkbox" formControlName="rememberMe" />
+          <span>Recordarme</span>
+        </label>
+        <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <!-- Error Message -->
+      @if (errorMessage()) {
+        <div class="alert alert-error">
+          <span class="alert-icon">⚠️</span>
+          <span>{{ errorMessage() }}</span>
+        </div>
+      }
+
+      <!-- Submit Button -->
+      <button type="submit" class="submit-button" [disabled]="loading() || loginForm.invalid">
+        @if (loading()) {
+          <span class="spinner"></span>
+          <span>Iniciando sesión...</span>
+        } @else {
+          <span>Iniciar Sesión</span>
+        }
+      </button>
+    </form>
+
+    <!-- Register Link -->
+    <div class="register-section">
+      <p class="register-text">
+        ¿No tienes una cuenta?
+        <a routerLink="/register" class="register-link">Regístrate aquí</a>
+      </p>
+    </div>
+
+    <!-- Terms and Services -->
+    <div class="terms-section">
+      <p class="terms-text">
+        Al iniciar sesión, aceptas nuestros
+        <a routerLink="/terms" class="terms-link">Términos y Condiciones</a>
+        y nuestra
+        <a routerLink="/privacy" class="terms-link">Política de Privacidad</a>. Tus datos están
+        protegidos y nunca serán compartidos con terceros sin tu consentimiento.
+      </p>
+    </div>
+  </div>
+</div>

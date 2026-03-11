@@ -1,0 +1,63 @@
+<div class="page-wrapper">
+  <div class="page-header">
+    <h1 class="page-title">Nuestros Productos <span class="text-highlight">Frescos</span></h1>
+    <p class="page-subtitle">Encuentra la mejor calidad al mejor precio</p>
+  </div>
+
+  @if (loading()) {
+    <app-loading-spinner message="Cargando productos..." />
+  } @else if (error()) {
+    <div class="error-state">
+      <div class="error-icon">⚠️</div>
+      <p class="error-title">Error al cargar productos</p>
+      <p class="error-text">{{ error() }}</p>
+      <button class="retry-button" (click)="retryLoad()">Reintentar</button>
+    </div>
+  } @else if (products().length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">🛒</div>
+      <p class="empty-title">No hay productos disponibles</p>
+      <p class="empty-text">Aún no tenemos productos en stock. Por favor, vuelve más tarde.</p>
+    </div>
+  } @else {
+    <div class="products-grid">
+      @for (product of products(); track $index) {
+        <div class="product-card">
+          <div class="product-image">
+            <img [src]="product.imageUrl" [alt]="product.name" />
+            @if (product.stock === 0) {
+              <div class="out-of-stock">
+                <span class="out-of-stock-label">Agotado</span>
+              </div>
+            }
+          </div>
+
+          <div class="product-content">
+            <span class="product-category">{{ product.category }}</span>
+            <h3 class="product-name">{{ product.name }}</h3>
+            <p class="product-description">{{ product.description }}</p>
+
+            <div class="product-footer">
+              <div class="product-pricing">
+                <span class="price-value">S/ {{ product.price | number: '1.2-2' }}</span>
+              </div>
+              @if (product.stock > 0) {
+                <button
+                  class="add-to-cart-btn"
+                  (click)="addToCart(product)"
+                  title="Agregar al carrito"
+                >
+                  🛒
+                </button>
+              }
+            </div>
+
+            @if (product.stock > 0 && product.stock < 10) {
+              <div class="stock-warning">⚠️ Solo quedan {{ product.stock }} unidades</div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

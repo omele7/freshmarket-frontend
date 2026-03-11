@@ -1,0 +1,37 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <a routerLink="/" class="logo">
+      <div class="logo-icon">🍎</div>
+      <span class="logo-text">FreshMarket</span>
+    </a>
+
+    <div class="nav-menu">
+      <a routerLink="/products" routerLinkActive="nav-link-active" class="nav-link"> Productos </a>
+      <a routerLink="/cart" routerLinkActive="nav-link-active" class="nav-link cart-link">
+        <span class="cart-icon-wrapper">
+          <span class="cart-icon">🛒</span>
+          @if (cartItemCount() > 0) {
+            <span class="cart-badge">{{ cartItemCount() }}</span>
+          }
+        </span>
+        Carrito
+      </a>
+
+      @if (isAuthenticated()) {
+        <!-- Authenticated User Menu -->
+        <a routerLink="/orders" routerLinkActive="nav-link-active" class="nav-link"> Pedidos </a>
+        <a routerLink="/users" routerLinkActive="nav-link-active" class="nav-link"> Mi Cuenta </a>
+        <div class="user-menu">
+          <span class="user-name">👤 {{ currentUser()?.firstName }}</span>
+          <button class="logout-button" (click)="onLogout()">Salir</button>
+        </div>
+      } @else {
+        <!-- Guest Menu -->
+        <a routerLink="/login" routerLinkActive="nav-link-active" class="nav-link auth-link">
+          Iniciar Sesión
+        </a>
+        <a routerLink="/register" class="register-button"> Registrarse </a>
+      }
+    </div>
+  </div>
+</nav>

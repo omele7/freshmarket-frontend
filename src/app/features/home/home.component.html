@@ -1,0 +1,97 @@
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-title">
+      Frutas y Verduras
+      <span class="hero-highlight">Frescas</span>
+    </h1>
+    <p class="hero-subtitle">
+      Directo del campo a tu mesa. Productos orgánicos de la más alta calidad.
+    </p>
+    <a routerLink="/products" class="hero-btn"> Comprar Ahora → </a>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+  <div class="container">
+    <div class="features-grid">
+      @for (feature of features; track feature.title) {
+        <div class="feature-card">
+          <div class="feature-icon">{{ feature.icon }}</div>
+          <h3 class="feature-title">{{ feature.title }}</h3>
+          <p class="feature-description">{{ feature.description }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="products-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Productos <span class="text-highlight">Destacados</span></h2>
+      <p class="section-subtitle">Los favoritos de nuestros clientes</p>
+    </div>
+
+    @if (isLoading) {
+      <div class="loading-container">
+        <div class="spinner"></div>
+        <p>Cargando productos destacados...</p>
+      </div>
+    } @else if (error) {
+      <div class="error-state">
+        <div class="error-icon">⚠️</div>
+        <p class="error-title">Error al cargar productos</p>
+        <p class="error-text">{{ error }}</p>
+        <button class="retry-button" (click)="loadFeaturedProducts()">Reintentar</button>
+      </div>
+    } @else if (featuredProducts.length === 0) {
+      <div class="empty-state">
+        <p>No hay productos disponibles en este momento.</p>
+      </div>
+    } @else {
+      <div class="products-grid">
+        @for (product of featuredProducts; track product.id) {
+          <div class="product-card">
+            <div class="product-image">
+              <img [src]="product.imageUrl" [alt]="product.name" />
+            </div>
+
+            <div class="product-info">
+              <span class="product-category">{{ product.category }}</span>
+              <h3 class="product-name">{{ product.name }}</h3>
+              <p class="product-description">{{ product.description }}</p>
+
+              <div class="product-footer">
+                <div class="product-price">
+                  <span class="price-main">S/ {{ product.price }}</span>
+                </div>
+                <button class="product-btn" (click)="addToCart(product)" title="Agregar al carrito">
+                  🛒
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    <div class="section-cta">
+      <a routerLink="/products" class="btn-secondary"> Ver Todos los Productos </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+  <div class="cta-content">
+    <h2 class="cta-title">¿Listo para comer más saludable?</h2>
+    <p class="cta-subtitle">
+      Únete a miles de clientes satisfechos que confían en FreshMarket para sus compras diarias.
+    </p>
+    <a routerLink="/products" class="cta-btn">Comenzar Ahora</a>
+  </div>
+</section>

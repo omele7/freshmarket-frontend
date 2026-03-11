@@ -1,0 +1,274 @@
+<div class="page-container">
+  <h1 class="page-title">Mi Perfil 👤</h1>
+
+  @if (loading()) {
+    <div class="loading-container">
+      <div class="spinner"></div>
+      <p>Cargando perfil...</p>
+    </div>
+  } @else if (user()) {
+    <div class="profile-card">
+      <!-- Información Personal -->
+      <div class="profile-section">
+        <div class="section-header">
+          <h2 class="section-title">Información Personal</h2>
+          @if (!editingProfile()) {
+            <button class="edit-icon-btn" (click)="toggleEditProfile()" title="Editar perfil">
+              ✏️
+            </button>
+          }
+        </div>
+
+        @if (editingProfile()) {
+          <!-- Formulario de Edición de Perfil -->
+          <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="edit-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">Nombre *</label>
+                <input
+                  id="firstName"
+                  type="text"
+                  formControlName="firstName"
+                  class="form-input"
+                  placeholder="Ej: Juan"
+                />
+                @if (
+                  profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched
+                ) {
+                  <span class="error-text">El nombre es requerido</span>
+                }
+              </div>
+
+              <div class="form-group">
+                <label for="lastName">Apellido *</label>
+                <input
+                  id="lastName"
+                  type="text"
+                  formControlName="lastName"
+                  class="form-input"
+                  placeholder="Ej: Pérez"
+                />
+                @if (profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched) {
+                  <span class="error-text">El apellido es requerido</span>
+                }
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Teléfono</label>
+              <input
+                id="phone"
+                type="tel"
+                formControlName="phone"
+                class="form-input"
+                placeholder="+51 999 999 999"
+              />
+              @if (profileForm.get('phone')?.invalid && profileForm.get('phone')?.touched) {
+                @if (profileForm.get('phone')?.hasError('pattern')) {
+                  <span class="error-text"
+                    >El teléfono solo puede contener números, espacios, + y -</span
+                  >
+                }
+              }
+            </div>
+
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" [value]="user()!.email" class="form-input" disabled />
+              <small class="help-text">El email no se puede modificar</small>
+            </div>
+
+            @if (errorMessage()) {
+              <div class="alert alert-error">{{ errorMessage() }}</div>
+            }
+
+            @if (successMessage()) {
+              <div class="alert alert-success">{{ successMessage() }}</div>
+            }
+
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="cancelEditProfile()"
+                [disabled]="saving()"
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="profileForm.invalid || saving()"
+              >
+                @if (saving()) {
+                  <span class="spinner-small"></span>
+                  <span>Guardando...</span>
+                } @else {
+                  <span>Guardar Cambios</span>
+                }
+              </button>
+            </div>
+          </form>
+        } @else {
+          <!-- Vista de Solo Lectura -->
+          <div class="info-group">
+            <p class="info-item">
+              <strong>Nombre:</strong> {{ user()!.firstName }} {{ user()!.lastName }}
+            </p>
+            <p class="info-item"><strong>Email:</strong> {{ user()!.email }}</p>
+            <p class="info-item">
+              <strong>Teléfono:</strong> {{ user()!.phone || 'No registrado' }}
+            </p>
+            <p class="info-item">
+              <strong>Miembro desde:</strong>
+              {{ user()!.createdAt | date: 'dd/MM/yyyy' }}
+            </p>
+          </div>
+        }
+      </div>
+
+      <!-- Dirección de Envío -->
+      <div class="profile-section">
+        <div class="section-header">
+          <h2 class="section-title">Dirección de Envío 📦</h2>
+          @if (user()!.address && !editingAddress()) {
+            <button class="edit-icon-btn" (click)="toggleEditAddress()" title="Editar dirección">
+              ✏️
+            </button>
+          }
+        </div>
+
+        @if (editingAddress() || !user()!.address) {
+          <!-- Formulario de Dirección -->
+          <form [formGroup]="addressForm" (ngSubmit)="saveAddress()" class="edit-form">
+            <div class="form-group">
+              <label for="street">Calle y Número *</label>
+              <input
+                id="street"
+                type="text"
+                formControlName="street"
+                class="form-input"
+                placeholder="Ej: Av. Principal 123, Dpto 4B"
+              />
+              @if (addressForm.get('street')?.invalid && addressForm.get('street')?.touched) {
+                <span class="error-text">La dirección es requerida</span>
+              }
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="city">Ciudad *</label>
+                <input
+                  id="city"
+                  type="text"
+                  formControlName="city"
+                  class="form-input"
+                  placeholder="Ej: Lima"
+                />
+                @if (addressForm.get('city')?.invalid && addressForm.get('city')?.touched) {
+                  <span class="error-text">La ciudad es requerida</span>
+                }
+              </div>
+
+              <div class="form-group">
+                <label for="state">Departamento/Estado *</label>
+                <input
+                  id="state"
+                  type="text"
+                  formControlName="state"
+                  class="form-input"
+                  placeholder="Ej: Lima"
+                />
+                @if (addressForm.get('state')?.invalid && addressForm.get('state')?.touched) {
+                  <span class="error-text">El departamento es requerido</span>
+                }
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="zipCode">Código Postal *</label>
+                <input
+                  id="zipCode"
+                  type="text"
+                  formControlName="zipCode"
+                  class="form-input"
+                  placeholder="Ej: 15001"
+                />
+                @if (addressForm.get('zipCode')?.invalid && addressForm.get('zipCode')?.touched) {
+                  <span class="error-text">El código postal es requerido</span>
+                }
+              </div>
+
+              <div class="form-group">
+                <label for="country">País *</label>
+                <input
+                  id="country"
+                  type="text"
+                  formControlName="country"
+                  class="form-input"
+                  placeholder="Ej: Perú"
+                />
+                @if (addressForm.get('country')?.invalid && addressForm.get('country')?.touched) {
+                  <span class="error-text">El país es requerido</span>
+                }
+              </div>
+            </div>
+
+            @if (addressErrorMessage()) {
+              <div class="alert alert-error">{{ addressErrorMessage() }}</div>
+            }
+
+            @if (addressSuccessMessage()) {
+              <div class="alert alert-success">{{ addressSuccessMessage() }}</div>
+            }
+
+            <div class="form-actions">
+              @if (user()!.address) {
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  (click)="cancelEditAddress()"
+                  [disabled]="savingAddress()"
+                >
+                  Cancelar
+                </button>
+              }
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="addressForm.invalid || savingAddress()"
+              >
+                @if (savingAddress()) {
+                  <span class="spinner-small"></span>
+                  <span>Guardando...</span>
+                } @else {
+                  <span>{{ user()!.address ? 'Actualizar' : 'Agregar' }} Dirección</span>
+                }
+              </button>
+            </div>
+          </form>
+        } @else if (user()!.address) {
+          <!-- Vista de Solo Lectura de Dirección -->
+          <div class="info-group">
+            <p class="info-item">📍 {{ user()!.address!.street }}</p>
+            <p class="info-item">{{ user()!.address!.city }}, {{ user()!.address!.state }}</p>
+            <p class="info-item">{{ user()!.address!.zipCode }} - {{ user()!.address!.country }}</p>
+          </div>
+        } @else {
+          <div class="empty-state">
+            <p class="empty-text">No has agregado una dirección de envío</p>
+            <button class="btn btn-primary" (click)="toggleEditAddress()">
+              + Agregar Dirección
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    <div class="error-container">
+      <p class="error-text">No se pudo cargar el perfil</p>
+      <button class="btn btn-primary" (click)="loadUserProfile()">Reintentar</button>
+    </div>
+  }
+</div>

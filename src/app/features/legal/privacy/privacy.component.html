@@ -1,0 +1,146 @@
+<div class="legal-wrapper">
+  <div class="legal-container">
+    <!-- Header -->
+    <div class="legal-header">
+      <div class="legal-icon">🔒</div>
+      <h1 class="legal-title">Política de Privacidad</h1>
+      <p class="legal-meta">Última actualización: marzo de 2026</p>
+    </div>
+
+    <!-- Content -->
+    <div class="legal-content">
+      <section class="legal-section">
+        <h2 class="section-title">1. Responsable del tratamiento</h2>
+        <p>
+          <strong>FreshMarket</strong> es el responsable del tratamiento de los datos personales que
+          nos facilitas a través de nuestra plataforma. Puedes contactarnos en
+          <a href="mailto:privacidad@freshmarket.com" class="legal-link"
+            >privacidad&#64;freshmarket.com</a
+          >.
+        </p>
+      </section>
+
+      <section class="legal-section">
+        <h2 class="section-title">2. Datos que recopilamos</h2>
+        <p>Recopilamos los siguientes tipos de información personal:</p>
+        <ul class="legal-list">
+          <li>
+            <strong>Datos de registro:</strong> nombre, correo electrónico y contraseña
+            (encriptada).
+          </li>
+          <li><strong>Datos de compra:</strong> dirección de envío y historial de pedidos.</li>
+          <li>
+            <strong>Datos de navegación:</strong> dirección IP, tipo de navegador y páginas
+            visitadas.
+          </li>
+          <li>
+            <strong>Cookies:</strong> información almacenada localmente para mejorar tu experiencia.
+          </li>
+        </ul>
+      </section>
+
+      <section class="legal-section">
+        <h2 class="section-title">3. Finalidad del tratamiento</h2>
+        <p>Utilizamos tus datos personales para:</p>
+        <ul class="legal-list">
+          <li>Gestionar tu cuenta y autenticar tu identidad de forma segura.</li>
+          <li>Procesar y gestionar tus pedidos y entregas.</li>
+          <li>Enviarte comunicaciones relacionadas con tu cuenta y pedidos.</li>
+          <li>Mejorar nuestros servicios y la experiencia de usuario.</li>
+          <li>Cumplir con las obligaciones legales y fiscales aplicables.</li>
+        </ul>
+      </section>
+
+      <section class="legal-section">
+        <h2 class="section-title">4. Base legal para el tratamiento</h2>
+        <p>
+          El tratamiento de tus datos se basa en el consentimiento que otorgas al registrarte, la
+          ejecución del contrato de compraventa, y el cumplimiento de obligaciones legales. Puedes
+          retirar tu consentimiento en cualquier momento sin que ello afecte a la legalidad del
+          tratamiento previo.
+        </p>
+      </section>
+
+      <section class="legal-section">
+        <h2 class="section-title">5. Compartición de datos con terceros</h2>
+        <p>
+          <strong>No vendemos ni cedemos tus datos personales a terceros</strong> con fines
+          comerciales. Únicamente compartimos información con:
+        </p>
+        <ul class="legal-list">
+          <li>Proveedores de logística para la gestión de entregas.</li>
+          <li>Pasarelas de pago para el procesamiento seguro de transacciones.</li>
+          <li>Autoridades competentes cuando así lo exija la ley.</li>
+        </ul>
+      </section>
+
+      <section class="legal-section">
+        <h2 class="section-title">6. Conservación de los datos</h2>
+        <p>
+          Conservamos tus datos mientras mantengas una cuenta activa en FreshMarket o mientras sea
+          necesario para cumplir con nuestras obligaciones legales. Una vez que solicites la
+          eliminación de tu cuenta, tus datos serán suprimidos en un plazo máximo de
+          <strong>30 días hábiles</strong>.
+        </p>
+      </section>
+
+      <section class="legal-section">
+        <h2 class="section-title">7. Seguridad de los datos</h2>
+        <p>
+          Aplicamos medidas técnicas y organizativas para proteger tu información personal frente a
+          accesos no autorizados, pérdida, alteración o divulgación. Entre ellas: cifrado de
+          contraseñas, comunicaciones bajo protocolo HTTPS y acceso restringido a los datos por
+          parte de nuestro equipo.
+        </p>
+      </section>
+
+      <section class="legal-section">
+        <h2 class="section-title">8. Tus derechos</h2>
+        <p>Como usuario tienes derecho a:</p>
+        <ul class="legal-list">
+          <li><strong>Acceso:</strong> conocer qué datos tuyos tratamos.</li>
+          <li><strong>Rectificación:</strong> corregir datos inexactos o incompletos.</li>
+          <li><strong>Supresión:</strong> solicitar la eliminación de tus datos.</li>
+          <li><strong>Oposición:</strong> oponerte a determinados tratamientos de tus datos.</li>
+          <li><strong>Portabilidad:</strong> recibir tus datos en un formato estructurado.</li>
+        </ul>
+        <p style="margin-top: 0.75rem">
+          Para ejercer cualquiera de estos derechos, escríbenos a
+          <a href="mailto:privacidad@freshmarket.com" class="legal-link"
+            >privacidad&#64;freshmarket.com</a
+          >.
+        </p>
+      </section>
+
+      <section class="legal-section">
+        <h2 class="section-title">9. Uso de cookies</h2>
+        <p>
+          FreshMarket utiliza cookies propias y de terceros para mejorar la experiencia de
+          navegación, recordar tus preferencias y analizar el uso de la plataforma. Puedes gestionar
+          o deshabilitar las cookies desde la configuración de tu navegador, aunque esto podría
+          afectar al funcionamiento de algunos servicios.
+        </p>
+      </section>
+
+      <section class="legal-section">
+        <h2 class="section-title">10. Cambios en esta política</h2>
+        <p>
+          Podemos actualizar esta Política de Privacidad periódicamente. Te notificaremos cualquier
+          cambio relevante a través de la plataforma o por correo electrónico. Te recomendamos
+          revisar esta página regularmente para estar informado de cómo protegemos tus datos.
+        </p>
+      </section>
+    </div>
+
+    <!-- Footer Links -->
+    <div class="legal-footer">
+      <a routerLink="/terms" class="legal-footer-link">Términos y Condiciones</a>
+      <span class="separator">·</span>
+      @if (authService.isAuthenticated()) {
+        <a routerLink="/" class="legal-footer-link">Volver al inicio</a>
+      } @else {
+        <a routerLink="/register" class="legal-footer-link">Volver al registro</a>
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,162 @@
+<div class="register-wrapper">
+  <div class="register-container">
+    <!-- Logo/Brand -->
+    <div class="register-header">
+      <div class="brand-logo">🍎</div>
+      <h1 class="brand-title">FreshMarket</h1>
+      <p class="brand-subtitle">Crea tu cuenta</p>
+    </div>
+
+    <!-- Register Form -->
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+      <!-- Name Fields -->
+      <div class="name-group">
+        <div class="form-group">
+          <label for="firstName" class="form-label"> Nombre <span class="required">*</span> </label>
+          <input
+            id="firstName"
+            type="text"
+            formControlName="firstName"
+            class="form-input"
+            placeholder="Juan"
+            [class.input-error]="isFieldInvalid('firstName')"
+          />
+          @if (isFieldInvalid('firstName')) {
+            <div class="error-message">El nombre es requerido</div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="lastName" class="form-label">
+            Apellido <span class="required">*</span>
+          </label>
+          <input
+            id="lastName"
+            type="text"
+            formControlName="lastName"
+            class="form-input"
+            placeholder="Pérez"
+            [class.input-error]="isFieldInvalid('lastName')"
+          />
+          @if (isFieldInvalid('lastName')) {
+            <div class="error-message">El apellido es requerido</div>
+          }
+        </div>
+      </div>
+
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email" class="form-label"> Email <span class="required">*</span> </label>
+        <div class="input-wrapper">
+          <span class="input-icon">📧</span>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="form-input"
+            placeholder="tu@email.com"
+            [class.input-error]="isFieldInvalid('email')"
+          />
+        </div>
+        @if (isFieldInvalid('email')) {
+          <div class="error-message">
+            @if (registerForm.get('email')?.hasError('required')) {
+              El email es requerido
+            } @else if (registerForm.get('email')?.hasError('email')) {
+              Ingresa un email válido
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Phone Field (Optional) -->
+      <div class="form-group">
+        <label for="phone" class="form-label">Teléfono (opcional)</label>
+        <div class="input-wrapper">
+          <span class="input-icon">📱</span>
+          <input
+            id="phone"
+            type="tel"
+            formControlName="phone"
+            class="form-input"
+            placeholder="+51 999 999 999"
+          />
+        </div>
+        @if (isFieldInvalid('phone')) {
+          <div class="error-message">
+            @if (registerForm.get('phone')?.hasError('pattern')) {
+              El teléfono solo puede contener números, espacios, + y -
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password" class="form-label">
+          Contraseña <span class="required">*</span>
+        </label>
+        <div class="input-wrapper">
+          <span class="input-icon">🔒</span>
+          <input
+            id="password"
+            [type]="showPassword() ? 'text' : 'password'"
+            formControlName="password"
+            class="form-input"
+            placeholder="Mínimo 6 caracteres"
+            [class.input-error]="isFieldInvalid('password')"
+          />
+          <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+            {{ showPassword() ? '👁️' : '👁️‍🗨️' }}
+          </button>
+        </div>
+        @if (isFieldInvalid('password')) {
+          <div class="error-message">
+            @if (registerForm.get('password')?.hasError('required')) {
+              La contraseña es requerida
+            } @else if (registerForm.get('password')?.hasError('minlength')) {
+              Mínimo 6 caracteres
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Terms Checkbox -->
+      <div class="form-group">
+        <label class="checkbox-label">
+          <input type="checkbox" formControlName="acceptTerms" />
+          <span> Acepto los <a routerLink="/terms" class="link">términos y condiciones</a> </span>
+        </label>
+        @if (isFieldInvalid('acceptTerms')) {
+          <div class="error-message">Debes aceptar los términos</div>
+        }
+      </div>
+
+      <!-- Error Message -->
+      @if (errorMessage()) {
+        <div class="alert alert-error">
+          <span class="alert-icon">⚠️</span>
+          <span>{{ errorMessage() }}</span>
+        </div>
+      }
+
+      <!-- Submit Button -->
+      <button type="submit" class="submit-button" [disabled]="loading() || registerForm.invalid">
+        @if (loading()) {
+          <span class="spinner"></span>
+          <span>Creando cuenta...</span>
+        } @else {
+          <span>Registrarse</span>
+        }
+      </button>
+    </form>
+
+    <!-- Login Link -->
+    <div class="login-section">
+      <p class="login-text">
+        ¿Ya tienes una cuenta?
+        <a routerLink="/login" class="login-link">Inicia sesión</a>
+      </p>
+    </div>
+  </div>
+</div>
