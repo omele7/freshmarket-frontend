@@ -1,6 +1,6 @@
 # FreshMarket - Frontend
 
-Aplicación web de comercio electrónico desarrollada con Angular 21. Permite a los usuarios explorar un catálogo de productos, gestionar un carrito de compras, realizar pedidos y administrar su perfil. El proyecto forma parte de un portafolio académico-profesional y consume una arquitectura de microservicios en el backend.
+Aplicación web de comercio electrónico desarrollada con Angular 21. Permite a los usuarios explorar un catálogo de productos, gestionar un carrito de compras, realizar pedidos y administrar su perfil. El proyecto consume una arquitectura de microservicios en el backend.
 
 ---
 
